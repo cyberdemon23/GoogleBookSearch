@@ -15,7 +15,9 @@
 				<form action="Search.php" action="post">
 					<input type="text" placeholder="Enter book title..." name="SearchString" style="width:250px;">
 					</input>
-					<button class="btn" type="submit" value="Search" style="width: 100px;"><i class="icon-book"></i></button>
+					<button class="btn" type="submit" value="Search" style="width: 100px;">
+						<i class="icon-book"></i>
+					</button>
 				</form>
 			</div>
 		</div>
