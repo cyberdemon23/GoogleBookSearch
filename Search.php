@@ -21,14 +21,14 @@
     }
 }
 </script>
-	<?php 
-	$js .= '<script src="https://www.googleapis.com/books/v1/volumes?q=' . urlencode($_REQUEST["SearchString"]) . '&callback=handleResponse"></script>';
+<?php 
+$js .= '<script src="https://www.googleapis.com/books/v1/volumes?q=' . urlencode($_REQUEST["SearchString"]) . '&callback=handleResponse"></script>';
 
-	echo $js;
+echo $js;
 
-	?>
+?>
 
-	
+
 <div class="span5"></div>
 <div class="span7">
 
