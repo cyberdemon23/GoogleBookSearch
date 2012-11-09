@@ -20,11 +20,18 @@
 				}
 			</script>
 			<?php
-			$js .= '<script src="https://www.googleapis.com/books/v1/volumes?q=' . urlencode($_REQUEST["SearchString"]) . '&callback=handleResponse"></script>';
+			$js .= '<script src="https://www.googleapis.com/books/v1/volumes?q=' . urlencode($_REQUEST["SearchString"]);
+
+			if ($_REQUEST["SearchBy"] == "Author") {
+				$js .= '+inauthor';
+			} elseif ($_REQUEST["SearchBy"] == "Title") {
+				$js .= '+intitle';
+			}
+
+			$js .= '&callback=handleResponse&printType=books"></script>';
 
 			echo $js;
 			?>
-
 			<div class="span5"></div>
 			<div class="span7">
 
