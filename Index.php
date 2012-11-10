@@ -7,6 +7,19 @@
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
 		<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-36174852-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+	</script>
+
+		<script type="text/javascript">
 			function BindButtons() {
 				var btns = ['btn-author', 'btn-title'];
 				var input = document.getElementById('btn-input');
@@ -32,6 +45,7 @@
 		<div class="container">
 			<div class="hero-unit" style="text-align: center;">
 				<h1>Google Book Search</h1>
+				<h4>Work in progress</h4>
 			</div>
 			<br/>
 			<div class="span12" style="text-align:center;">

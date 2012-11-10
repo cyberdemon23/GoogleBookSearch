@@ -4,19 +4,32 @@
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-36174852-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+	</script>
 		<title>Search Results</title>
 	</head>
 	<body>
 		<div class="container">
 			<br/>
-			<div id="content"></div>
+			<div id="content"></div><br/>
+			<a href="Index.php">Back to search.</a>
 			<script>
 				function handleResponse(response) {
 					for (var i = 0; i < response.items.length; i++) {
 						var item = response.items[i];
 						// in production code, item.text should have the HTML entities escaped.
 						document.getElementById("content").innerHTML += 
-						"<a href='#"+item.volumeInfo.id+"' role='button' class='btn' data-toggle='modal'>"+item.volumeInfo.title+"</a><br/>";
+						"<a href='#"+item.volumeInfo.id+"' role='button' class='btn' data-toggle='modal'>"+item.volumeInfo.title+"</a><br/>";	
 					}
 				}
 			</script>
