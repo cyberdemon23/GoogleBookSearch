@@ -18,38 +18,48 @@
 			}
 		</script>
 
+		<style type="text/css">
+			.row12{
+				text-align: center;
+			}
+		</style>
+
 		<title>Book Search</title>
 
 	</head>
 
 	<body onload="BindButtons();">
 		<div class="container">
+			<div class="hero-unit" style="text-align: center;">
+				<h1>Google Book Search</h1>
+			</div>
 			<br/>
-			<div class="span5"></div>
-			<div class="span7">
+			<div class="span12" style="text-align:center;">
 				<form action="Search.php" action="post" class="form-inline">
 					<div class="control-group">
 						<div class="input-prepend">
 							<span class="add-on"><i class="icon-book"></i></span>
-							<input type="text" placeholder="Enter book title..." name="SearchString" id="inputIcon" class="span3">
+
+							<input type="text" placeholder="Enter book author or title..." name="SearchString" id="inputIcon" class="span3">
 							<button class="btn" type="submit" value="Search" class="span2">
 								<!-- <i class="icon-book"></i> -->
 								Search
 							</button>
 						</div>
-						<div class="btn-group" data-toggle="buttons-radio">
-							<button id="btn-author" class="btn" type="button" value="Author">
-								Author
-							</button>
-							<button id="btn-title" class="btn" type="button" value="Title">
-								Title
-							</button>
-						</div>
-						<input type="hidden" id="btn-input" name="SearchBy" value="">
+						
+						<input type="hidden" id="btn-input" name="SearchBy" value="Author">
 						</input>
 
 					</div>
 				</form>
+				<div class="btn-group" data-toggle="buttons-radio">
+						<button id="btn-author" class="btn active" type="button" checked="true" value="Author" style="width:100px;">
+							Author
+						</button>
+						<button id="btn-title" class="btn" type="button" value="Title" style="width:100px;">
+							Title
+						</button>
+					</div>
 			</div>
 		</div>
 	</body>

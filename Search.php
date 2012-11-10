@@ -15,17 +15,40 @@
 					for (var i = 0; i < response.items.length; i++) {
 						var item = response.items[i];
 						// in production code, item.text should have the HTML entities escaped.
-						document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title;
+						document.getElementById("content").innerHTML += 
+						"<a href='#"+item.volumeInfo.id+"' role='button' class='btn' data-toggle='modal'>"+item.volumeInfo.title+"</a><br/>";
 					}
 				}
 			</script>
 			<?php
-			$js .= '<script src="https://www.googleapis.com/books/v1/volumes?q=' . urlencode($_REQUEST["SearchString"]);
+			$firstValue = true;
+			$js .= '<script src="https://www.googleapis.com/books/v1/volumes?q='; //. urlencode($_REQUEST["SearchString"]);
+
+			$tokens = explode(" ", $_REQUEST["SearchString"]);
 
 			if ($_REQUEST["SearchBy"] == "Author") {
-				$js .= '+inauthor';
+
+				foreach ($tokens as $value){
+					if($firstValue){
+						$js .= 'inauthor:' . $value;
+						$firstValue = false;
+					}
+					else{
+						$js .= '+inauthor:' . $value;
+					}
+				}
+
 			} elseif ($_REQUEST["SearchBy"] == "Title") {
-				$js .= '+intitle';
+
+				foreach ($tokens as $value){
+					if($firstValue){
+						$js .= 'intitle:' . $value;
+						$firstValue = false;
+					}
+					else{
+						$js .= '+intitle:' . $value;
+					}
+				}
 			}
 
 			$js .= '&callback=handleResponse&printType=books"></script>';
