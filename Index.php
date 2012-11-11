@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 	<head>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>

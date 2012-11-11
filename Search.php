@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="js/bootstrap.min.js"></script>
@@ -21,15 +21,23 @@
 	<body>
 		<div class="container">
 			<br/>
-			<div id="content"></div><br/>
+			<div class="row">
+			<div class="span12" id="content">
+				<!--Results content goes here. -->
+			</div></div><br/>
 			<a href="Index.php">Back to search.</a>
-			<script>
+			<script type="text/javascript">
 				function handleResponse(response) {
+					
 					for (var i = 0; i < response.items.length; i++) {
 						var item = response.items[i];
+						var id = item.id;
 						// in production code, item.text should have the HTML entities escaped.
-						document.getElementById("content").innerHTML += 
-						"<a href='#"+item.volumeInfo.id+"' role='button' class='btn' data-toggle='modal'>"+item.volumeInfo.title+"</a><br/>";	
+						document.getElementById("content").innerHTML +=
+						  "<div class='row'<div class='span12'><h5>" + item.volumeInfo.title + "</h5></div></div>"
+						 + "<div class='row'><div class='span12'>"
+						 + item.volumeInfo.description
+						 + "</div></div>";
 					}
 				}
 			</script>
@@ -68,10 +76,6 @@
 
 			echo $js;
 			?>
-			<div class="span5"></div>
-			<div class="span7">
-
-			</div>
 		</div>
 	</body>
 
