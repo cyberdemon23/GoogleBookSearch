@@ -34,10 +34,11 @@
 						var id = item.id;
 						// in production code, item.text should have the HTML entities escaped.
 						document.getElementById("content").innerHTML +=
-						  "<div class='row'<div class='span12'><h5>" + item.volumeInfo.title + "</h5></div></div>"
-						 + "<div class='row'><div class='span12'>"
+						  "<div class='row'><div class='span12'><h5>" + item.volumeInfo.title + "</h5></div></div>"
+						 + "<div class='row'><div class='span12'><h6>"+ item.volumeInfo.authors +"</h6></div></div>"
+						 + "<div class='row'><div class='span12'><p>"
 						 + item.volumeInfo.description
-						 + "</div></div>";
+						 + "</p></div></div>";
 					}
 				}
 			</script>
