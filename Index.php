@@ -63,7 +63,8 @@
 						
 						<input type="hidden" id="btn-input" name="SearchBy" value="Author">
 						</input>
-
+						<input type="hidden" id="startIndex" name ="StartIndex" value="0">
+						</input>
 					</div>
 				</form>
 				<div class="btn-group" data-toggle="buttons-radio">
