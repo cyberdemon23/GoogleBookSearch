@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<script type="text/javascript">
+<head>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<script type="text/javascript">
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-36174852-1']);
 	_gaq.push(['_trackPageview']);
@@ -16,94 +16,108 @@
 	})()
 
 	</script>
-
-	<script type="text/javascript">
-		function pageForward(){
-			//alert(document.getElementById('startIndex').value);
-			//alert(document.getElementById('startIndex').value);
-		}
-	</script>
-		<title>Search Results</title>
-	</head>
-	<body>
-		<div class="container">
-			<br/>
-			<div class="row">
+	<title>Search Results</title>
+</head>
+<body>
+	<div class="container">
+		<br/>
+		<div class="row">
 			<div class="span12" id="content">
 				<!--Results content goes here. -->
 			</div></div><br/>
 			<a href="Index.php">Back to search.</a>
 			<script type="text/javascript">
-				function handleResponse(response) {
-					
-					for (var i = 0; i < response.items.length; i++) {
-						var item = response.items[i];
-						var id = item.id;
-						var itemDescription = item.volumeInfo.description;
+			function handleResponse(response) {
 
-						if(itemDescription == undefined){
-							itemDescription = "No description."
-						}
+				for (var i = 0; i < response.items.length; i++) {
+					var item = response.items[i];
+					var id = item.id;
+					var itemDescription = item.volumeInfo.description;
+
+					if(itemDescription == undefined){
+						itemDescription = "No description."
+					}
 						// in production code, item.text should have the HTML entities escaped.
 						document.getElementById("content").innerHTML +=
-						  "<div class='row'><div class='span12'><h5>" + item.volumeInfo.title + "</h5></div></div>"
-						 + "<div class='row'><div class='span12'><h6>"+ item.volumeInfo.authors +"</h6></div></div>"
+						"<div class='row'><div class='span12'><h5>" + item.volumeInfo.title + "</h5></div></div>"
+						+ "<div class='row'><div class='span8'><h6>"+ item.volumeInfo.authors +"</h6></div></div>"
+						 //+	"<div class='span4'>" + item.volumeInfo.imageLinks.smallThumbnail + "</div></div>"
 						 + "<div class='row'><div class='span12'><p>"
 						 + itemDescription
 						 + "</p></div></div>";
+						}
+
+						document.getElementById("content").innerHTML += "<div class='row'>"
+						+ "<div class='span3' style='text-align: right;'><p><a href'#' style='cursor: pointer; cursor: hand;' onclick='pageBack()'>Previous 10</a></p></div>"
+						+ "<div class='span6' style='text-align: center;'><p>" + response.totalItems + " book(s) found.</p></div>"
+						+ "<div class='span3'><p><a href'#' style='cursor: pointer; cursor: hand;' onclick='pageForward()'>Next 10</a></p></div>"
+						+ "</div>";
+					}
+					</script>
+					<?php
+					$firstValue = true;
+					$js .= '<script src="https://www.googleapis.com/books/v1/volumes?q=';
+
+					$tokens = explode(" ", $_REQUEST["SearchString"]);
+
+					if ($_REQUEST["SearchBy"] == "Author") {
+
+						foreach ($tokens as $value){
+							if($firstValue){
+								$js .= 'inauthor:' . $value;
+								$firstValue = false;
+							}
+							else{
+								$js .= '+inauthor:' . $value;
+							}
+						}
+
+					} elseif ($_REQUEST["SearchBy"] == "Title") {
+
+						foreach ($tokens as $value){
+							if($firstValue){
+								$js .= 'intitle:' . $value;
+								$firstValue = false;
+							}
+							else{
+								$js .= '+intitle:' . $value;
+							}
+						}
 					}
 
-					document.getElementById("content").innerHTML += "<div class='row'>"
-					+ "<div class='span3'></div>"
-					+ "<div class='span6' style='text-align: center;'><p>" + response.totalItems + " book(s) found.</p></div>"
-					//+ "<div class='span3'><a href'#' style='cursor: pointer; cursor: hand;' onclick='pageForward()'>Next 10</a></p></div>"
-					+ "</div>";
-				}
-			</script>
-			<?php
-			$firstValue = true;
-			$js .= '<script src="https://www.googleapis.com/books/v1/volumes?q=';
+					$startIndex = $_REQUEST["StartIndex"];
 
-			$tokens = explode(" ", $_REQUEST["SearchString"]);
+					$js .= '&callback=handleResponse&printType=books&startIndex=' . $startIndex . '"></script>';
 
-			if ($_REQUEST["SearchBy"] == "Author") {
+					$queryString = $_SERVER["QUERY_STRING"];
 
-				foreach ($tokens as $value){
-					if($firstValue){
-						$js .= 'inauthor:' . $value;
-						$firstValue = false;
-					}
-					else{
-						$js .= '+inauthor:' . $value;
-					}
-				}
+					$startIndexForward = $startIndex + 10;
+					$startIndexBack = $startIndex - 10;
 
-			} elseif ($_REQUEST["SearchBy"] == "Title") {
+					$pos = strrpos($queryString, "StartIndex", -1);
 
-				foreach ($tokens as $value){
-					if($firstValue){
-						$js .= 'intitle:' . $value;
-						$firstValue = false;
-					}
-					else{
-						$js .= '+intitle:' . $value;
-					}
-				}
-			}
+					$queryString = substr($queryString, 0, $pos) . "StartIndex=";
 
-			$startIndex = $_REQUEST["StartIndex"];
+					$hiddenHtml = "<input type='hidden' id='startIndex' Name='StartIndex' Value='". $startIndex ."'></input>";
 
-			$js .= '&callback=handleResponse&printType=books&startIndex=' . $startIndex . '"></script>';
+					$pageForwardJS = "<script type='text/javascript'>
+					function pageForward(){ window.location.href='/GoogleBookSearch/Search.php?" . $queryString 
+					. $startIndexForward . "' } </script>";
 
-			$startIndex += 10;
-			$hiddenHtml = "<input type='hidden' id='startIndex' Name='StartIndex' Value='". $startIndex ."'></input>";
-			echo $hiddenHtml;
+					$pageBackJS = "<script type='text/javascript'>
+					function pageBack(){ window.location.href='/GoogleBookSearch/Search.php?" . $queryString 
+					. $startIndexBack . "' } </script>";
 
-			echo $js;
-			?>
-		</div>
+					echo $hiddenHtml;
 
-		<form>
-	</body>
+					echo $pageForwardJS;
 
-</html>
+					echo $pageBackJS;
+					echo $js;
+					?>
+				</div>
+
+				<form>
+				</body>
+
+				</html>
