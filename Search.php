@@ -35,12 +35,20 @@
 					var itemDescription = item.volumeInfo.description;
 					var author = item.volumeInfo.authors;
 					var smallThumbnail = item.volumeInfo.imageLinks;
+					var previewLink = item.volumeInfo.previewLink;
+
+					if (typeof previewLink === "undefined"){
+						previewLink="";
+					}
+					else{
+						previewLink = "Click <a href='" + previewLink + "'> here </a> to preview this book.";
+					}
 
 					if(typeof smallThumbnail === "undefined"){
 						smallThumbnail = "";
 					}
 					else{
-						smallThumbnail = "<img src='" + smallThumbnail.smallThumbnail+ "'></img>"
+						smallThumbnail = "<img src='" + smallThumbnail.smallThumbnail + "'></img>"
 					}
 
 
@@ -58,7 +66,8 @@
 						 +	"<div class='span4'>" + smallThumbnail + "</div>"
 						 + "<div class='row'><div class='span12'><p>"
 						 + itemDescription
-						 + "</p></div></div>";
+						 + "</p></div></div>"
+						 +"<div class='row'></div class='span12'><p>" + previewLink + "</p></div></div>";
 						}
 
 						document.getElementById("content").innerHTML += "<div class='row'>"
