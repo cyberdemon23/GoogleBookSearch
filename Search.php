@@ -33,15 +33,29 @@
 					var item = response.items[i];
 					var id = item.id;
 					var itemDescription = item.volumeInfo.description;
+					var author = item.volumeInfo.authors;
+					var smallThumbnail = item.volumeInfo.imageLinks;
 
+					if(typeof smallThumbnail === "undefined"){
+						smallThumbnail = "";
+					}
+					else{
+						smallThumbnail = "<img src='" + smallThumbnail.smallThumbnail+ "'></img>"
+					}
+
+
+					if(typeof  author === "undefined"){
+						author = "";
+					}
+					
 					if(itemDescription == undefined){
 						itemDescription = "No description."
 					}
 						// in production code, item.text should have the HTML entities escaped.
 						document.getElementById("content").innerHTML +=
 						"<div class='row'><div class='span12'><h5>" + item.volumeInfo.title + "</h5></div></div>"
-						+ "<div class='row'><div class='span8'><h6>"+ item.volumeInfo.authors +"</h6></div></div>"
-						 //+	"<div class='span4'>" + item.volumeInfo.imageLinks.smallThumbnail + "</div></div>"
+						+ "<div class='row'><div class='span8'><h6>"+ author +"</h6></div></div>"
+						 +	"<div class='span4'>" + smallThumbnail + "</div>"
 						 + "<div class='row'><div class='span12'><p>"
 						 + itemDescription
 						 + "</p></div></div>";
